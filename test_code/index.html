@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <marquee class="head-marquee">Hi</marquee>
+    </header>
+    <div class="main">
+        <div class="todo">
+            <h3>Todo</h3>
+            <div class="tasksforgoogle">
+                {% if logged_in %}
+                <div class="carousel-container">
+                    <button class="carousel-btn prev-btn" onclick="prevTask()">❮</button>
+                    <div class="tasklists" id="tasklists">
+                        {% for task_list in tasks %}
+                        <div class="tasklist">
+                            <h2>{{ task_list.name }}</h2>
+                            <ul>
+                                {% for task in task_list.tasks %}
+                                <li>
+                                    <form method="POST" action="{{ url_for('toggle_task') }}">
+                                        <input type="hidden" name="task_id" value="{{ task.id }}">
+                                        <input type="hidden" name="tasklist_id" value="{{ task_list.id }}">
+                                        <input type="checkbox" name="status" onchange="this.form.submit()" {% if
+                                            task.status=='completed' %}checked{% endif %}>
+                                        {{ task.title }}
+                                    </form>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-btn next-btn" onclick="nextTask()">❯</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="events">
+            <h3>Events</h3>
+            <div class="calendar-events">
+                {% if logged_in %}
+                <h2>Your Upcoming Events</h2>
+                {% for event in events %}
+                <div class="event">
+                    <h3>{{ event['summary'] }}</h3>
+                    <p>Start: {{ event['start'].get('dateTime', event['start'].get('date')) }}</p>
+                    <p>End: {{ event['end'].get('dateTime', event['end'].get('date')) }}</p>
+                </div>
+                {% endfor %}
+                {% else %}
+                <a href="{{ url_for('login') }}"><button>Login with Google</button></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="assistant">
+            <h3>Assistant</h3>
+            <div class="pearl-body"></div>
+        </div>
+        <div class="finances">
+            <h3>Finances</h3>
+        </div>
+        <div class="weather">
+            <h3>Weather</h3>
+        </div>
+        <div class="bottom-left"></div>
+        <div class="bottom-right"><a href="{{ url_for('logout') }}"><button>Logout</button></a>
+            {% else %}
+            <a href="{{ url_for('login') }}"><button>Login with Google</button></a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <script>
+        let currentIndex = 0;
+
+        function showTask(index) {
+            const tasklists = document.getElementById('tasklists');
+            const total = tasklists.children.length;
+            if (index < 0) index = 0;
+            if (index >= total) index = total - 1;
+            currentIndex = index;
+            const offset = -index * 100;
+            tasklists.style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextTask() {
+            showTask(currentIndex + 1);
+        }
+
+        function prevTask() {
+            showTask(currentIndex - 1);
+        }
+
+        window.onload = () => showTask(0);
+    </script>
+
+</body>
+
+</html>

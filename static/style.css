@@ -1,0 +1,313 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    transition: 0.5s ease-in-out;
+}
+
+:root {
+    --c1: #333;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    height: 100wh;
+    width: 100wh;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/*Header*/
+.head-marquee {
+    width: 100%;
+    background-color: var(--c1);
+}
+
+
+/*PEARL*/
+/* .pearl-body {
+    width: 100px;
+    height: 100px;
+    background-color: #333;
+    border-radius: 100%;
+} */
+
+.main {
+    display: grid;
+    grid-template-columns: 20% 25% 25% 25%;
+    grid-template-rows: auto auto;
+    gap: 15px;
+    padding: 20px;
+    height: 90vh;
+    box-sizing: border-box;
+}
+
+.main>div {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.main>div>h3 {
+    margin: 15px auto;
+    font-weight: 600;
+}
+
+/*GPTCODEE*/
+
+/* Top Row */
+.todo {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    background: var(--c1);
+}
+
+.events {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    background: var(--c1);
+}
+
+.assistant {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    background: var(--c1);
+}
+
+.finances {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    background: var(--c1);
+}
+
+/* Bottom Row */
+.weather {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    background: var(--c1);
+}
+
+.bottom-left {
+    grid-column: 2 / 4;
+    grid-row: 2 / 3;
+    background: var(--c1);
+}
+
+.bottom-right {
+    grid-column: 4 / 5;
+    grid-row: 2 / 3;
+    background: var(--c1);
+}
+
+
+
+
+
+
+
+
+/*GOOGLE TASKS*/
+.tasksforgoogle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.tasklists {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 80%;
+    justify-content: center;
+    margin: auto;
+}
+
+.tasklist {
+    flex: 0 0 100%;
+    height: 400px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+/* Navigation buttons */
+.carousel-btn {
+    position: absolute;
+    top: 90%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 100;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+
+/*GOOGLE TASKS*/
+.calendar-events {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    overflow-y: auto;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling individual events */
+.event {
+    background-color: #444;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+
+/*PEARL_BODY*/
+.pearl-body {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #ffffff 30%, #e0e0e0 70%, #cccccc 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* Waves effect */
+.pearl-body::before {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 70%);
+    animation: wave 3s infinite ease-in-out;
+}
+
+/*FINANCES*/
+.finances {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--c1);
+    border-radius: 8px;
+    max-width: 600px;
+    margin-inline: auto;
+}
+
+#financeForm {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+#financeForm input,
+#financeForm select,
+#financeForm button {
+    padding: 10px;
+    font-size: 14px;
+}
+
+#financeForm button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: grey;
+}
+/*END_OF_FINANCES*/
+
+/* Pulsing effect for pearl */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 1);
+    }
+}
+
+/* Expanding waves effect */
+@keyframes wave {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
