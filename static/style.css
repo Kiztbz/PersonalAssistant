@@ -63,6 +63,7 @@ button:hover {
 .main>div>h3 {
     margin: 15px auto;
     font-weight: 600;
+    font-size: 25px;
 }
 
 /*GPTCODEE*/
@@ -114,10 +115,6 @@ button:hover {
 
 
 
-
-
-
-
 /*GOOGLE TASKS*/
 .tasksforgoogle {
     display: flex;
@@ -155,8 +152,13 @@ button:hover {
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: center;
+    margin: auto;
+}
+
+.tasklist ul {
+    list-style: none;
+    text-align: left;
+    margin-top: 10px;
 }
 
 /* Navigation buttons */
@@ -200,8 +202,9 @@ button:hover {
 .event {
     background-color: #444;
     padding: 10px;
-    margin: 10px 0;
     border-radius: 5px;
+    width: 85%;
+    margin: 10px auto;
 }
 
 
@@ -277,6 +280,7 @@ td {
 th {
     background-color: grey;
 }
+
 /*END_OF_FINANCES*/
 
 /* Pulsing effect for pearl */
