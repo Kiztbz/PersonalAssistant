@@ -10,7 +10,7 @@
 
 <body>
     <header>
-        <marquee class="head-marquee">Hi</marquee>
+        <!-- <marquee class="head-marquee">Hi</marquee> -->
     </header>
     <div class="main">
         <div class="todo">
@@ -51,8 +51,10 @@
                 {% for event in events %}
                 <div class="event">
                     <h3>{{ event['summary'] }}</h3>
-                    <p>Start: {{ event['start'].get('dateTime', event['start'].get('date')) }}</p>
-                    <p>End: {{ event['end'].get('dateTime', event['end'].get('date')) }}</p>
+                    <p>Start: <span class="dateTime">{{ event['start'].get('dateTime',
+                            event['start'].get('date'))}}</span></p>
+                    <p>End: <span class="dateTime">{{ event['end'].get('dateTime', event['end'].get('date')) }}</span>
+                    </p>
                 </div>
                 {% endfor %}
                 {% else %}
@@ -62,10 +64,19 @@
         </div>
         <div class="assistant">
             <h3>Assistant</h3>
-            <div class="pearl-body"></div>
+            <!-- <div class="pearl-body"></div> -->
+            <div class="chat-area">
+                <div class="chat" id="chat-box"
+                    style="max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                </div>
+                <div class="inputbar">
+                    <input type="text" id="chat-input" placeholder="Ask something..." style="width: 80%;">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
         </div>
         <div class="finances">
-            <h3>Finance Tracker (Stored in TXT)</h3>
+            <h3>Finance Tracker</h3>
             <form id="transactionForm">
                 <input name="desc" type="text" placeholder="Description" required>
                 <input name="amount" type="number" placeholder="Amount" required>
@@ -75,11 +86,11 @@
                 </select>
                 <button type="submit">Add</button>
             </form>
-        
+
             <p><strong>Total Income:</strong> ₹<span id="total-income">{{ total_income }}</span></p>
             <p><strong>Total Expense:</strong> ₹<span id="total-expense">{{ total_expense }}</span></p>
             <p><strong>Balance:</strong> ₹<span id="balance">{{ balance }}</span></p>
-        
+
             <ul id="transaction-list">
                 {% for t in transactions %}
                 <li>{{ t.type.capitalize() }} - ₹{{ t.amount }} ({{ t.desc }})</li>
@@ -88,7 +99,8 @@
         </div>
 
         <div class="weather">
-            <h3>Weather</h3>
+            <h3>Current Weather</h3>
+            <div id="weather-box">Loading weather...</div>
         </div>
         <div class="bottom-left"></div>
         <div class="bottom-right"><a href="{{ url_for('logout') }}"><button>Logout</button></a>
@@ -180,7 +192,54 @@
         });
     </script>
 
+    <!--CHATBOT-->
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
 
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+            input.value = '';
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    chatBox.innerHTML += `<div><strong>Assistant:</strong> ${data.reply}</div>`;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                })
+                .catch(err => {
+                    chatBox.innerHTML += `<div><strong>Assistant:</strong> Sorry, something went wrong.</div>`;
+                });
+        }
+    </script>
+
+    <!--WEATHER-->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("/weather")
+                .then(res => res.json())
+                .then(data => {
+                    const weatherBox = document.getElementById("weather-box");
+                    if (data.error) {
+                        weatherBox.innerText = data.error;
+                    } else {
+                        weatherBox.innerHTML = `
+                        <p><strong>${data.city}</strong></p>
+                        <p>${data.description}</p>
+                        <p>🌡️ ${data.temp}°C</p>
+                    `;
+                    }
+                });
+        });
+    </script>
 
 </body>
 

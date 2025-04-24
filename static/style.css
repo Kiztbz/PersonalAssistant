@@ -6,6 +6,7 @@
 
 :root {
     --c1: #333;
+    --borderrad1: 8px;
 }
 
 body {
@@ -161,6 +162,13 @@ button:hover {
     margin-top: 10px;
 }
 
+.dateTime {
+    background-color: #000;
+    padding: 5px;
+    border-radius: var(--borderrad1);
+    margin: 0px 10px;
+}
+
 /* Navigation buttons */
 .carousel-btn {
     position: absolute;
@@ -188,7 +196,7 @@ button:hover {
 .calendar-events {
     width: 100%;
     max-width: 500px;
-    height: 400px;
+    height: 500px;
     overflow-y: auto;
     background-color: #333;
     color: white;
@@ -205,6 +213,19 @@ button:hover {
     border-radius: 5px;
     width: 85%;
     margin: 10px auto;
+    transition: 0.5s ease-in-out;
+}
+
+.event:hover {
+    background-color: #868686;
+}
+
+.event>* {
+    margin: 10px auto;
+}
+
+.event>p {
+    font-weight: 600;
 }
 
 
@@ -223,7 +244,7 @@ button:hover {
 }
 
 /* Waves effect */
-.pearl-body::before {
+/* .pearl-body::before {
     content: "";
     position: absolute;
     width: 120%;
@@ -231,11 +252,10 @@ button:hover {
     border-radius: 50%;
     background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 70%);
     animation: wave 3s infinite ease-in-out;
-}
+} */
 
 /*FINANCES*/
 .finances {
-    margin-top: 30px;
     padding: 20px;
     background-color: var(--c1);
     border-radius: 8px;
@@ -282,6 +302,32 @@ th {
 }
 
 /*END_OF_FINANCES*/
+
+/*CHAT*/
+.chat-area {
+    width: 90%;
+    margin: auto;
+}
+
+.inputbar {
+    display: flex;
+}
+
+#chat-box {
+    background-color: #000;
+    color: #fff;
+    text-align: left;
+    height: 600px;
+    border-radius: var(--borderrad1);
+}
+
+/*WEATHER*/
+#weather-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
 
 /* Pulsing effect for pearl */
 @keyframes pulse {

@@ -5,6 +5,7 @@ from google.oauth2.credentials import Credentials
 import os
 import json 
 import datetime
+import requests
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
@@ -58,6 +59,11 @@ def calculate_summary(transactions):
 def home():
     transactions = load_transactions()
     summary = calculate_summary(transactions)
+
+    # Calculate summary
+    total_income = sum(float(t["amount"]) for t in transactions if t["type"] == "income")
+    total_expense = sum(float(t["amount"]) for t in transactions if t["type"] == "expense")
+    balance = total_income - total_expense
 
     tasks = []
     events = []
@@ -175,6 +181,49 @@ def toggle_task():
     tasks_service.tasks().update(tasklist=tasklist_id, task=task_id, body=task).execute()
 
     return redirect(url_for("home"))
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message', '').lower()
+    
+    # Simple hardcoded replies
+    if "hello" in user_message:
+        reply = "Hello! How can I assist you today?"
+    elif "balance" in user_message:
+        transactions = load_transactions()
+        summary = calculate_summary(transactions)
+        reply = f"Your balance is ₹{summary['balance']:.2f}"
+    elif "tasks" in user_message:
+        reply = "You can check your tasks in the tasks section above."
+    elif "bye" in user_message:
+        reply = "Goodbye! Let me know if you need anything else."
+    else:
+        reply = "I'm still learning! Try asking about your balance or say hello."
+
+    return jsonify({ "reply": reply })
+
+@app.route("/weather")
+def weather():
+    api_key = "ce9b392cfd5b87bf62f12f96ef7425d3"
+    city = "dehradun"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+
+    try:
+        res = requests.get(url)
+        data = res.json()
+
+        if data.get("cod") != 200:
+            return jsonify({"error": "Could not fetch weather data."})
+
+        weather_info = {
+            "city": data["name"],
+            "description": data["weather"][0]["description"].title(),
+            "temp": data["main"]["temp"]
+        }
+        return jsonify(weather_info)
+
+    except Exception as e:
+        return jsonify({"error": "Failed to fetch weather."})
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
