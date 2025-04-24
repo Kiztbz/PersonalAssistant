@@ -2,3 +2,5 @@ credentials.json
 data/
 venv/
 .vscode/
+__pycache__/
+flask_session/
