@@ -30,9 +30,9 @@ flow = Flow.from_client_secrets_file(
     redirect_uri="http://127.0.0.1:5000/callback"
 )
 
-# ---------------------------
+
 # UTILITY FUNCTIONS
-# ---------------------------
+
 def load_transactions():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, 'r') as f:
@@ -52,9 +52,9 @@ def calculate_summary(transactions):
         "balance": income - expense
     }
 
-# ---------------------------
+
 # ROUTES
-# ---------------------------
+
 @app.route("/")
 def home():
     transactions = load_transactions()
