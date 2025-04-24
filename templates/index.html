@@ -84,8 +84,10 @@
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
                 </select>
+                <input name="date" type="date" required>
                 <button type="submit">Add</button>
             </form>
+
 
             <p><strong>Total Income:</strong> ₹<span id="total-income">{{ total_income }}</span></p>
             <p><strong>Total Expense:</strong> ₹<span id="total-expense">{{ total_expense }}</span></p>
@@ -93,9 +95,11 @@
 
             <ul id="transaction-list">
                 {% for t in transactions %}
-                <li>{{ t.type.capitalize() }} - ₹{{ t.amount }} ({{ t.desc }})</li>
+                <li><span class="tdate">{{ t.date }}</span> <span class="ttype">{{ t.type.capitalize() }}</span> <span
+                        class="tamt">₹{{ t.amount }}</span> <span class="tdesc">{{ t.desc }}</span></li>
                 {% endfor %}
             </ul>
+
         </div>
 
         <div class="weather">
@@ -163,7 +167,8 @@
             const data = {
                 desc: form.desc.value,
                 amount: parseFloat(form.amount.value),
-                type: form.type.value
+                type: form.type.value,
+                date: form.date.value // Add the date
             };
 
             const res = await fetch('/add_transaction', {
@@ -175,12 +180,11 @@
             if (res.ok) {
                 const result = await res.json();
 
-                // Append new transaction
+                // Append new transaction with date
                 const newItem = document.createElement('li');
-                newItem.textContent = `${data.type.charAt(0).toUpperCase() + data.type.slice(1)} - ₹${data.amount} (${data.desc})`;
+                newItem.textContent = `${data.date} - ${data.type.charAt(0).toUpperCase() + data.type.slice(1)} - ₹${data.amount} (${data.desc})`;
                 document.getElementById('transaction-list').appendChild(newItem);
 
-                // Update summary fields
                 document.getElementById('total-income').textContent = result.total_income;
                 document.getElementById('total-expense').textContent = result.total_expense;
                 document.getElementById('balance').textContent = result.balance;
@@ -190,6 +194,7 @@
                 alert("Failed to add transaction.");
             }
         });
+
     </script>
 
     <!--CHATBOT-->

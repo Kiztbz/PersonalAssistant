@@ -52,7 +52,7 @@ button:hover {
     grid-template-rows: auto auto;
     gap: 15px;
     padding: 20px;
-    height: 90vh;
+    height: 95vh;
     box-sizing: border-box;
 }
 
@@ -284,6 +284,26 @@ button:hover {
     cursor: pointer;
 }
 
+#transaction-list {
+    text-align: left;
+}
+
+#transaction-list>li {
+    margin: 10px auto;
+}
+
+#transaction-list>li>span {
+    background-color: #000;
+    padding: 5px;
+    margin: 5px auto;
+    border-radius: var(--borderrad1);
+}
+
+#transactionForm{
+    display: flex;
+    flex-direction: column;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -322,7 +342,7 @@ th {
 }
 
 /*WEATHER*/
-#weather-box{
+#weather-box {
     display: flex;
     align-items: center;
     justify-content: center;

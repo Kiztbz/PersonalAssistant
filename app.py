@@ -123,7 +123,6 @@ def add_transaction():
     transactions.append(data)
     save_transactions(transactions)
 
-    # Calculate summary
     total_income = sum(float(t["amount"]) for t in transactions if t["type"] == "income")
     total_expense = sum(float(t["amount"]) for t in transactions if t["type"] == "expense")
     balance = total_income - total_expense
@@ -134,6 +133,7 @@ def add_transaction():
         'total_expense': total_expense,
         'balance': balance
     })
+
 
 
 @app.route("/login")
